@@ -11,18 +11,16 @@ const bannerDataItem = [
       prev: 6,
       id: 1,
       next: 2,
-      heading : `A Brand New `,
-      subHeading : 'Training Experience.',
-      desc : 'Work towards your fitness goal with one of our amazing personal trainers, for the price of just one cup of coffee per week.'
+      heading : `Come for the charge `,
+      subHeading : 'stay for the car',
   },
   {
       image: b2,
       prev: 1,
       id: 2,
       next: 3,
-      heading : 'Get Support From a',
-      subHeading : 'Real Personal Trainer.',
-      desc : 'Work towards your fitness goal with one of our amazing personal trainers, for the price of just one cup of coffee per week.'
+      heading : 'Electric cars are the future',
+      subHeading : 'for real this time',
   },
 
 ]

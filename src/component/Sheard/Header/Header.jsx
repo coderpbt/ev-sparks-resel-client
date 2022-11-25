@@ -7,9 +7,9 @@ import { AuthContext } from '../../../context/DpiContext/ContextProvider';
 const Header = () => {
   const { user, logOut } = useContext(AuthContext)
   return (
-    <div className='bg-[#101010]'>
+    <div className='bg-[#3e0c0c]'>
         <div className='xl:w-[1200px] mx-auto w-[95%]'>
-          <div className="navbar">
+          <div className="navbar py-8">
             <div className="navbar-start">
               <div className="dropdown">
                 <label tabIndex={0} className="btn btn-ghost text-white lg:hidden">
@@ -41,7 +41,7 @@ const Header = () => {
                 </ul>
               </div>
 
-              <Link to='/' className="font-bold capitalize text-white text-xl">Ev Spark</Link>
+              <Link to='/' className="font-bold capitalize text-white text-xl">Ev Sparks</Link>
             </div>
 
             <div className="navbar-end">

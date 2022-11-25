@@ -2,7 +2,9 @@ import { createBrowserRouter } from "react-router-dom";
 import PrivateRoute from "../../context/PrivateRoute/PrivateRoute";
 import AddServices from "../../Pages/AddServices/AddServices";
 import Blog from "../../Pages/Blog/Blog/Blog";
+import CatagoryWiseProduct from "../../Pages/CatagoryWiseProduct/CatagoryWiseProduct";
 import ErrorElement from "../../Pages/ErrorElement/ErrorElement";
+import Catagory from "../../Pages/Home/Catagory/Catagory";
 import Home from "../../Pages/Home/Home/Home";
 import Main from "../Layout/Main";
 import Login from "../Sheard/Login/Login";
@@ -38,8 +40,17 @@ export const router = createBrowserRouter([
         path:'/addservice',
         element:<PrivateRoute><AddServices /></PrivateRoute>
       },
+      // {
+      //   path:'/categoris',
+      //   loader: () => fetch(`http://localhost:5000/categoris`),
+      //   element : <Catagory />
+      // },
+      {
+        path:'/categoris/:id',
+        loader: ({params}) => fetch(`http://localhost:5000/categoris/${params.id}`),
+        element : <CatagoryWiseProduct />
+      }
 
-   
     ]
   },
   {

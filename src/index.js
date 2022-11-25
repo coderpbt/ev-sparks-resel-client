@@ -5,6 +5,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import ContextProvider from './context/DpiContext/ContextProvider';
 import { ToastContainer } from 'react-toastify';
+import 'react-photo-view/dist/react-photo-view.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

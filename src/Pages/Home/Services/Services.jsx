@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import ServicesTemplate from './ServicesTemplate';
 
 import { PhotoProvider } from 'react-photo-view';
@@ -29,9 +28,6 @@ const Services = () => {
             </PhotoProvider>
           </div>
           <div className="card-actions justify-center py-12">
-          <button className="btn btn-primary">
-           <Link to='/services'> See All</Link>
-        </button>
       </div>
         </div>
       </div>
