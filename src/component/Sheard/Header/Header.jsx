@@ -17,7 +17,6 @@ const Header = () => {
                 </label>
                 <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                   <li className='text-black mx-4'><NavLink to='/home'>Home</NavLink></li>
-                  <li className='text-black mx-4'><NavLink to='/services' >Services</NavLink></li>
                   <li className='text-black mx-4'><NavLink to='/blog'>Blog</NavLink></li>
                   {
                     user?.uid ?
@@ -49,7 +48,6 @@ const Header = () => {
 
                 <ul className="menu menu-horizontal p-0">
                   <li className='text-white mx-4'><NavLink to='/home'>Home</NavLink></li>
-                  <li className='text-white mx-4'><NavLink to='/services' >Services</NavLink></li>
                   <li className='text-white mx-4'><NavLink to='/blog'>Blog</NavLink></li>
                   {
                     user?.uid ?
