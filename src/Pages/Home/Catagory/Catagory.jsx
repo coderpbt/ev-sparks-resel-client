@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useLoaderData } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Catagory = () => {
-  // const xxx = useLoaderData();
   const [catagorys, setCatagorys] = useState([])
   useEffect(() => {
     fetch('http://localhost:5000/categoris')
@@ -13,13 +12,18 @@ const Catagory = () => {
 
 
   return (
-    <div>
-       <div className='flex flex-wrap lg:flex-col'>
-        {
-          catagorys.map(catagory => <p className='lg:m-3 m-2 text-left' key={catagory._id}>
-            <Link className='text-black' to={`/categoris/${catagory._id}`}>{catagory.name}</Link>
-          </p>)
-        }
+    <div className='py-12'>
+      <div className='xl:w-[800px] mx-auto w-[95%]'>
+        <h2 className='text-2xl text-center my-8 font-bold text-black'>Product Category</h2>
+        <div className='flex justify-between '>
+          {
+            catagorys.map(catagory => <p className='lg:m-3 m-2 text-left' key={catagory._id}>
+              <Link className='text-black text-3xl font-bold underline' to={`/categoris/${catagory._id}`}>
+                {catagory.name}
+                </Link>
+            </p>)
+          }
+        </div>
       </div>
     </div>
   );
