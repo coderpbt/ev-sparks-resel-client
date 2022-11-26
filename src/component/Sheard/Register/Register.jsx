@@ -56,10 +56,11 @@ On the " Add A Product" route, create a form that will have fields for product n
     .then((result) => {
       const user = result.user;
       handleUpdateNameProfile(name, photoURL)
+      saveUser(name, email, accopt)
       console.log(user)
       form.reset();
       toast.success('Registion SuccesFull')
-      navigate('/login')
+      navigate('/home')
     })
     .catch((error) => {
       console.error(error)
@@ -75,15 +76,28 @@ On the " Add A Product" route, create a form that will have fields for product n
       photoURL : photoURL
     }
     updateProfileName(profile)
-    .then(() => {})
+    .then(() => {
+     
+    })
     .catch((error) => {
       console.log(error)
     })
   }
 
-  // const saveUser = (email,password,accopt) => {
-
-  // }
+  const saveUser = (name, email, accopt) =>{
+    const user ={name, email, accopt};
+    fetch('http://localhost:5000/users', {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify(user)
+    })
+    .then(res => res.json())
+    .then(data =>{
+      console.log(data);
+    })
+}
 
   if (loading) {
     return <div className='text-black text-center'><img className='w-[300px] mx-auto' src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921" alt="" /></div>
@@ -123,6 +137,7 @@ On the " Add A Product" route, create a form that will have fields for product n
                   <span className="label-text">Select Your Account Options</span>
                 </label>
                 <select className="input input-bordered" name="accopt" id="">
+                  <option value='admin'>admin</option>
                   <option value='buyer'>Buyer</option>
                   <option value='seller'>Seller</option>
                 </select>

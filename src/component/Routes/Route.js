@@ -3,6 +3,7 @@ import PrivateRoute from "../../context/PrivateRoute/PrivateRoute";
 import AddServices from "../../Pages/AddServices/AddServices";
 import Blog from "../../Pages/Blog/Blog/Blog";
 import CatagoryWiseProduct from "../../Pages/CatagoryWiseProduct/CatagoryWiseProduct";
+import AllSeller from "../../Pages/Dashbord/AllSeller/AllSeller";
 import MyOrder from "../../Pages/Dashbord/MyOrder/MyOrder";
 import ErrorElement from "../../Pages/ErrorElement/ErrorElement";
 import Home from "../../Pages/Home/Home/Home";
@@ -57,6 +58,10 @@ export const router = createBrowserRouter([
       {
         path: '/dashboard',
         element: <MyOrder />
+      },
+      {
+        path: '/dashboard/allseller',
+        element: <AllSeller />
       }
     ]
   }
