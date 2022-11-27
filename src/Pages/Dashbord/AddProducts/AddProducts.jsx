@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 
@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 const AddProducts = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const date = new Date().toLocaleTimeString()
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     
     // const imageHostKey = process.env.REACT_APP_IMAGEBB_KEY
     // console.log(imageHostKey);
@@ -23,7 +23,7 @@ const AddProducts = () => {
         }
     })
 
-    const handleAddDoctor = data => {
+    const handleAddProduct = data => {
        const image = data.image[0];
        const formData = new FormData();
        formData.append('image', image)
@@ -67,7 +67,7 @@ const AddProducts = () => {
             .then(result =>{
                 console.log(result);
                 toast.success(`${data.name} is added successfully`);
-                // navigate('/dashboard/managedoctor')
+                navigate('/myproduct')
             })
         }
        })
@@ -84,9 +84,10 @@ const AddProducts = () => {
     */
 
     return (
-        <div className='w-96 p-7'>
-            {/* <h2 className="text-4xl">Add A Doctor</h2> */}
-            <form onSubmit={handleSubmit(handleAddDoctor)}>
+        <div className='p-7'>
+            <h2 className="text-4xl mb-5">Add A Product</h2>
+            <form onSubmit={handleSubmit(handleAddProduct)}>
+             <div className='grid lg:grid-cols-2 grid-cols-1 justify-between gap-8'>
                <div className="form-control w-full max-w-xs">
                     <label className="label"> <span className="label-text">Product Image</span></label>
                     <input type="file" {...register("image", {
@@ -195,6 +196,8 @@ const AddProducts = () => {
 
 
                 <input className='btn btn-accent w-full mt-4' value="Add Product" type="submit" />
+
+                </div>
             </form>
         </div>
     );
