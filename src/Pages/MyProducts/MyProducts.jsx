@@ -23,7 +23,7 @@ const MyProducts = () => {
     })
 
     const handleDelete = () => {
-
+        
     }
 
     return (
