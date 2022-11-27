@@ -21,7 +21,7 @@ const Header = () => {
                   {
                     user?.uid ?
                       <>
-                        <li className='text-black mx-4'><NavLink to='/addservice'>Add Service</NavLink></li>
+                         <li className='text-black mx-4'><NavLink to='/myproduct'>My Product</NavLink></li>
                         <li className='text-black mx-4'><NavLink to='/dashboard'>Dashbord</NavLink></li>
                         <li>
                             <label tabIndex={0} className="avatar">
@@ -52,7 +52,7 @@ const Header = () => {
                   {
                     user?.uid ?
                       <>
-                        <li className='text-white mx-4'><NavLink to='/addservice'>Add Service</NavLink></li>
+                        <li className='text-white mx-4'><NavLink to='/myproduct'>My Product</NavLink></li>
                         <li className='text-white mx-4'><NavLink to='/dashboard'>Dashbord</NavLink></li>
                         <li>
                             <label tabIndex={0} className="avatar">

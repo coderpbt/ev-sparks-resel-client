@@ -1,22 +1,27 @@
 import React from "react";
 
 const CatagoryWiseProductTem = ({ item, setBook,}) => {
-  const { image_url, name, location, resale_price, orginal_price, years_of_use, dateTime} = item;
+  const { image, productName, location, reselPrice, originPrice, useOfYear, productCondition,yourName,date} = item;
 //picture, name, location, resale price, original price, years of use, the time when it got posted
 
   return (
     <div>
       <div className="card card-compact shadow-xl">
         <figure>
-          <img src={image_url} alt="logos" />
+          <img src={image} alt="logos" />
         </figure>
         <div className="card-body">
-          <h2 className="card-title text-lg text-left text-black">{name}</h2>
+          <h2 className="card-title text-lg text-left text-black">{productName}</h2>
+          <div className="flex justify-between items-center">
+             <h2 className="card-title text-lg text-left text-black">post by <span className="text-blue-600 underline">{yourName}</span></h2>
+             <h3 className="text-base text-black text-left">Use : {useOfYear}</h3>
+          </div>
+          
           <h3 className="text-base text-black text-left">location : {location}</h3>
-          <h3 className="text-base text-black text-left">Use : {years_of_use}</h3>
-          <h2 className="card-title text-base text-black">Orginal Price : ${orginal_price} </h2>
-          <h2 className="card-title text-base text-black">Resale Price : ${resale_price}</h2>
-          <h3 className="text-base text-black text-left">{dateTime}</h3>
+          <h2 className="card-title text-base text-black">Orginal Price : ${reselPrice} </h2>
+          <h2 className="card-title text-base text-black">Resale Price : ${originPrice}</h2>
+          <h2 className="card-title text-base text-black">Product Condition: {productCondition}</h2>
+          <h3 className="text-base text-black text-left">{date}</h3>
           <div className="card-actions justify-end">
             <label
               htmlFor="booking-modal"

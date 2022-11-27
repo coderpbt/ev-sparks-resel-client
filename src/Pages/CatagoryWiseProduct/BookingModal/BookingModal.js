@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { AuthContext } from '../../../context/DpiContext/ContextProvider';
 
 const BookingModal = ({ book, setBook }) => {
-    const { name : productName, resale_price} = book;
+    const {  productName, reselPrice} = book;
     const dateTime = new Date().toLocaleTimeString("en-US")
 
     const {user} = useContext(AuthContext)
@@ -19,12 +19,12 @@ const BookingModal = ({ book, setBook }) => {
         const phone = form.phone.value;
         const booking = {
             bookinDate : dateTime,
-            productName: productName,
+            productName : productName,
             sellerName: name,
             locationmetting,
             email,
             phone,
-            resale_price
+            reselPrice
         }
 
         console.log(booking);
@@ -57,7 +57,7 @@ const BookingModal = ({ book, setBook }) => {
                 <div className="modal-box relative">
                     <label htmlFor="booking-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
                     <h3 className="text-lg font-bold">{productName}</h3>
-                    <h3 className="text-lg font-bold">${resale_price}</h3>
+                    <h3 className="text-lg font-bold">${reselPrice}</h3>
                     <form onSubmit={handleBooking} className='grid grid-cols-1 gap-3 mt-10'>
                         <input type="text" disabled value={dateTime} className="input w-full input-bordered " />
                         <input name="name" type="text" defaultValue={user?.displayName} disabled placeholder="Your Name" className="input w-full input-bordered" />

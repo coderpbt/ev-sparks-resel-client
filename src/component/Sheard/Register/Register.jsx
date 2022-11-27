@@ -6,37 +6,6 @@ import { AuthContext } from '../../../context/DpiContext/ContextProvider';
 
 
 const Register = () => {
-
-  /*
-  
-Your navbar will have a login button. Implement email/password-based authentication and 
-at least one social login(google, Facebook, GitHub, etc.) authentication. Create an extra 
-field for options. There will be two options: a radio button, a dropdown, a toggle button, 
-etc. If the user creates a seller account, he will choose the seller option. Otherwise, 
-a normal user will have the user option selected by default. Users logged in by using 
-social media will be considered as buyers.
-
-Note: Do not apply email verification as it will be an inconvenience for the examiner. 
-It is important for the examiner to be able to check your authentication without any hassle. 
-If you want, you can add email verification after getting the assignment result.
-
-  
-
-
-
-If a user(buyer/seller/admin) is logged in, they will see logout (should be working) and another option on the header called Dashboard. The dashboard routes will change based on the users:
-Buyers will see: My orders(see bonus requirement 7),
-Sellers will see: Add A product (See Requirement 8), My Products(see requirement 9), My buyers(this one is optional).
-Admin will see: All Sellers, All Buyers (see requirement 12), Reported Items
-
-
-On the " Add A Product" route, create a form that will have fields for product name, price, condition type(excellent, good, fair), mobile number, location (Chittagong, Dhaka, etc.), product category (every product should be under a category), description, price, Year of purchase and other relevant information. After submitting the form, a modal/toast with a message will pop up to inform the user. Please remember, they must be a seller to add a product (think about the verification process for the admin access). After adding the product, you will then be redirected to the My Products Page.
-
-
-
-  */
-
-
   const {createUser, updateProfileName,loading} = useContext(AuthContext)
   const navigate = useNavigate();
 
@@ -137,7 +106,6 @@ On the " Add A Product" route, create a form that will have fields for product n
                   <span className="label-text">Select Your Account Options</span>
                 </label>
                 <select className="input input-bordered" name="accopt" id="">
-                  <option value='admin'>admin</option>
                   <option value='buyer'>Buyer</option>
                   <option value='seller'>Seller</option>
                 </select>

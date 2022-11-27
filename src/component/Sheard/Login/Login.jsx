@@ -41,13 +41,34 @@ const Login = () => {
     signInwithG()
     .then((result) => {
       const user = result.user;
-      console.log(user)
+      const email = result.user.email;
+      const name = result.user.displayName;
+      console.log(user,name,email)
+      saveUser(name,email)
       navigate(from, {replace: true})
     })
     .catch((error) => {
       console.error(error)
     })
   }
+
+
+  const saveUser = (name, email) =>{
+    const user ={name, email};
+    fetch('http://localhost:5000/users', {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify(user)
+    })
+    .then(res => res.json())
+    .then(data =>{
+      console.log(data);
+    })
+}
+
+
 
   if (loading) {
     return <div className='text-black text-center'><img className='w-[300px] mx-auto' src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921" alt="" /></div>
