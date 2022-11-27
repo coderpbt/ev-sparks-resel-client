@@ -1,8 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaGoogle } from "react-icons/fa";
 import { toast } from 'react-toastify';
 import { AuthContext } from '../../../context/DpiContext/ContextProvider';
+import useToken from '../../../hooks/useToken';
 
 
 const Login = () => {
@@ -10,7 +11,16 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+
+  const [loginUserEmaail, setLoginUserEmaail] = useState('')
+  const [token] = useToken(loginUserEmaail)
+
   const from = location.state?.from?.pathname || '/'
+
+  if (token) {
+      navigate(from, {replace : true})
+  }
+
 
 
   const handleOnSubmit = (event) => {
@@ -25,7 +35,7 @@ const Login = () => {
       const user = result.user;
       console.log(user)
       form.reset()
-      navigate(from, {replace: true})
+      setLoginUserEmaail(email)
       toast.success('Login SuccessFul')
      
     })

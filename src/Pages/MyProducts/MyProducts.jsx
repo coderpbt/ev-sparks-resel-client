@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
 import { toast } from 'react-toastify';
+import Loading from '../../component/Sheard/Loading/Loading';
 import { AuthContext } from '../../context/DpiContext/ContextProvider';
 import MyProductsTem from './MyProductsTem';
 
@@ -42,7 +43,7 @@ const MyProducts = () => {
     }
 
     if (isLoading) {
-        return <h2>Loading</h2>
+        return <Loading />
     }
 
     return (
@@ -52,7 +53,7 @@ const MyProducts = () => {
                 <div className="flex justify-between flex-wrap my-10">
                     <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 pt-2'>
                         {
-                            productswise.map(item => <MyProductsTem item={item} key={item._id} handleDelete={handleDelete} />)
+                            productswise?.map(item => <MyProductsTem item={item} key={item._id} handleDelete={handleDelete} />)
                         }
                     </div>
                 </div>

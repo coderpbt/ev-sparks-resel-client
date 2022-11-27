@@ -1,13 +1,24 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../../../context/DpiContext/ContextProvider';
+import useToken from '../../../hooks/useToken';
 
 
 
 const Register = () => {
   const {createUser, updateProfileName,loading} = useContext(AuthContext)
+
+  const [createUserEmil, setCreateUserEmil] = useState("")
+  const [refresh, setRefresh] = useState(true)
+  const [token] = useToken(createUserEmil)
   const navigate = useNavigate();
+
+  if (token) {
+    setRefresh(!refresh)
+    navigate("/")
+  }
+
 
 
   const handleOnSubmit = (event) => {
@@ -17,25 +28,25 @@ const Register = () => {
     const photoURL = form.photoURL.value;
     const email = form.email.value;
     const password = form.password.value;
-    const accopt = form.accopt.value;
+    const role = form.role.value;
 
-    console.log(email, password,name,photoURL,accopt)
+    console.log(email, password,name,photoURL,role)
 
     createUser(email,password)
     .then((result) => {
       const user = result.user;
       handleUpdateNameProfile(name, photoURL)
-      saveUser(name, email, accopt)
+      saveUser(name, email, role)
       console.log(user)
       form.reset();
       toast.success('Registion SuccesFull')
-      navigate('/home')
     })
     .catch((error) => {
       console.error(error)
       const errorMessage = error.message
       toast.warning(`${errorMessage}`)
     })
+
 
   }
 
@@ -53,8 +64,8 @@ const Register = () => {
     })
   }
 
-  const saveUser = (name, email, accopt) =>{
-    const user ={name, email, accopt};
+  const saveUser = (name, email, role) =>{
+    const user ={name, email, role};
     fetch('http://localhost:5000/users', {
         method: 'POST',
         headers: {
@@ -64,7 +75,7 @@ const Register = () => {
     })
     .then(res => res.json())
     .then(data =>{
-      console.log(data);
+      setCreateUserEmil(email)
     })
 }
 
@@ -105,7 +116,7 @@ const Register = () => {
                 <label className="label">
                   <span className="label-text">Select Your Account Options</span>
                 </label>
-                <select className="input input-bordered" name="accopt" id="">
+                <select className="input input-bordered" name="role" id="">
                   <option value='buyer'>Buyer</option>
                   <option value='seller'>Seller</option>
                 </select>

@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
+import Loading from '../../component/Sheard/Loading/Loading';
 import { AuthContext } from '../DpiContext/ContextProvider';
 
 
@@ -9,7 +10,7 @@ const PrivateRoute = ({ children }) => {
   const location = useLocation();
 
   if (loading) {
-    return <div className='text-white'>Loading....</div>
+    return <Loading />
   }
 
   if (user && user?.uid) {
