@@ -25,7 +25,7 @@ const ContextProvider = ({children}) => {
     setLoading(true)
     return signInWithEmailAndPassword(auth,email,password)
   }
-//google login Function
+
   const signInwithG = () => {
     setLoading(true)
     return signInWithPopup(auth, googleProvider)
