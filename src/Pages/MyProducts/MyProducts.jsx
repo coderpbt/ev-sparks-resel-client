@@ -8,7 +8,7 @@ import MyProductsTem from './MyProductsTem';
 const MyProducts = () => {
     const { user } = useContext(AuthContext)
 
-    const url = `http://localhost:5000/productswise?email=${user?.email}`
+    const url = `https://b612-used-products-resale-server-side-coderpbt.vercel.app/productswise?email=${user?.email}`
 
     const { data: productswise = [], isLoading, refetch } = useQuery({
         queryKey: ['productswise', user?.email],
@@ -27,7 +27,7 @@ const MyProducts = () => {
 
 
     const handleDelete = item => {
-        fetch(`http://localhost:5000/productswise/${item._id}`, {
+        fetch(`https://b612-used-products-resale-server-side-coderpbt.vercel.app/productswise/${item._id}`, {
             method: 'DELETE', 
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`

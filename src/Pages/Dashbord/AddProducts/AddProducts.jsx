@@ -3,6 +3,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import Loading from '../../../component/Sheard/Loading/Loading';
 
 
 
@@ -17,7 +18,7 @@ const AddProducts = () => {
     const { data: productSpecialty, isLoading } = useQuery({
         queryKey: ['specialty'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/productSpecialty');
+            const res = await fetch('https://b612-used-products-resale-server-side-coderpbt.vercel.app/productSpecialty');
             const data = await res.json();
             return data;
         }
@@ -55,7 +56,7 @@ const AddProducts = () => {
             }
 
             // save doctor information to the database
-            fetch('http://localhost:5000/productswise', {
+            fetch('https://b612-used-products-resale-server-side-coderpbt.vercel.app/productswise', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json', 
@@ -74,7 +75,7 @@ const AddProducts = () => {
     }
 
     if(isLoading){
-        return <h2>Loading</h2>
+        return <Loading />
     }
 
     /*
