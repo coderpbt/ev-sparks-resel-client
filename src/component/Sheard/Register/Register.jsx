@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../../../context/DpiContext/ContextProvider';
 import useToken from '../../../hooks/useToken';
+import { useEffect } from 'react';
 
 
 
@@ -14,10 +15,13 @@ const Register = () => {
   const [token] = useToken(createUserEmil)
   const navigate = useNavigate();
 
-  if (token) {
-    setRefresh(!refresh)
-    navigate("/")
-  }
+  useEffect(() => {
+    if (token) {
+      setRefresh(!refresh)
+      navigate("/")
+    }
+
+  },[token])
 
 
 

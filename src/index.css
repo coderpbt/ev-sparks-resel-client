@@ -19,3 +19,9 @@ code {
 img.profile-img {
   width: 50px;
 }
+
+
+ul.menu.p-4.w-80.text-base-content {
+  background: #fff;
+  z-index: 1;
+}
