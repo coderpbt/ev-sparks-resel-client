@@ -1,5 +1,5 @@
 import React from 'react';
-import dev from '../../../images/shutterstock_353170508-scaled.webp'
+import dev from '../../../images/zd.png'
 
 const ProductDelevery = () => {
 

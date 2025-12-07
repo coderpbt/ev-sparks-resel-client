@@ -1,82 +1,140 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { AuthContext } from '../../../context/DpiContext/ContextProvider';
-
-
+import { FaBolt, FaBars, FaTimes } from 'react-icons/fa';
 
 const Header = () => {
-  const { user, logOut } = useContext(AuthContext)
+  const { user, logOut } = useContext(AuthContext);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
-    <div className='bg-[#3e0c0c]'>
-        <div className='xl:w-[1200px] mx-auto w-[95%]'>
-          <div className="navbar py-8">
-            <div className="navbar-start">
-              <div className="dropdown">
-                <label tabIndex={0} className="btn btn-ghost text-white lg:hidden">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
-                </label>
-                <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                  <li className='text-black mx-4'><NavLink to='/home'>Home</NavLink></li>
-                  <li className='text-black mx-4'><NavLink to='/blog'>Blog</NavLink></li>
-                  {
-                    user?.uid ?
-                      <>
-                         <li className='text-black mx-4'><NavLink to='/myproduct'>My Product</NavLink></li>
-                        <li className='text-black mx-4'><NavLink to='/dashboard'>Dashbord</NavLink></li>
-                        <li>
-                            <label tabIndex={0} className="avatar">
-                              <div className="rounded-full">
-                                {user?.photoURL && <img className='profile-img' src={user?.photoURL} alt='' />}
-                              </div>
-                            </label>
-                        </li>
-                        <button onClick={logOut} className='text-black'>log Out</button>
-                      </>
-                      :
-                      <>
-                        <li className='text-black mx-4'><NavLink to='/login'>Login</NavLink></li>
-                      </>
-                  } 
-                </ul>
+    <nav className="fixed top-0 w-full z-50 bg-gray-950/95 backdrop-blur-lg border-b border-emerald-900">
+      <div className="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+        
+        {/* Logo */}
+        <Link to="/" className="flex items-center gap-3">
+          <FaBolt className="text-3xl lg:text-4xl text-emerald-400" />
+          <h1 className="text-2xl lg:text-3xl font-orbitron text-emerald-400 tracking-wider">EV Sparks</h1>
+        </Link>
+
+        {/* Desktop Menu */}
+        <div className="hidden lg:flex items-center gap-10 text-lg font-semibold">
+          <NavLink to="/home" className="text-gray-300 hover:text-emerald-400 transition">Home</NavLink>
+          <NavLink to="/blog" className="text-gray-300 hover:text-emerald-400 transition">Blog</NavLink>
+
+          {user?.uid ? (
+            <>
+              <NavLink to="/myproduct" className="text-gray-300 hover:text-emerald-400 transition">My Product</NavLink>
+              <NavLink to="/dashboard" className="text-gray-300 hover:text-emerald-400 transition">Dashboard</NavLink>
+            </>
+          ) : null}
+
+          {/* Auth Section */}
+          {user?.uid ? (
+            <div className="flex items-center gap-5">
+              <div className="avatar">
+                <div className="w-10 rounded-full ring ring-emerald-400 ring-offset-2 ring-offset-gray-950">
+                  {user?.photoURL ? (
+                    <img src={user.photoURL} alt="Profile" />
+                  ) : (
+                    <div className="bg-emerald-600 w-full h-full flex items-center justify-center text-white font-bold text-sm">
+                      {user?.displayName?.charAt(0).toUpperCase() || 'U'}
+                    </div>
+                  )}
+                </div>
               </div>
-
-              <Link to='/' className="font-bold capitalize text-white text-xl">Ev Sparks</Link>
+              <button
+                onClick={logOut}
+                className="text-gray-300 hover:text-red-400 transition font-medium"
+              >
+                Logout
+              </button>
             </div>
+          ) : (
+            <NavLink to="/login" className="text-gray-300 hover:text-emerald-400 transition">
+              Login
+            </NavLink>
+          )}
+        </div>
 
-            <div className="navbar-end">
-              <div className="navbar-center hidden lg:flex">
+        {/* Mobile Menu Toggle */}
+        <button
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="lg:hidden text-emerald-400 text-2xl"
+        >
+          {mobileMenuOpen ? <FaTimes /> : <FaBars />}
+        </button>
+      </div>
 
-                <ul className="menu menu-horizontal p-0">
-                  <li className='text-white mx-4'><NavLink to='/home'>Home</NavLink></li>
-                  <li className='text-white mx-4'><NavLink to='/blog'>Blog</NavLink></li>
-                  {
-                    user?.uid ?
-                      <>
-                        <li className='text-white mx-4'><NavLink to='/myproduct'>My Product</NavLink></li>
-                        <li className='text-white mx-4'><NavLink to='/dashboard'>Dashbord</NavLink></li>
-                        <li>
-                            <label tabIndex={0} className="avatar">
-                              <div className="rounded-full">
-                                {user?.photoURL && <img className='profile-img' src={user?.photoURL} alt='' />}
-                              </div>
-                            </label>
-                        </li>
-                        <button onClick={logOut} className='text-white'>log Out</button>
-                      </>
-                      :
-                      <>
-                        <li className='text-white mx-4'><NavLink to='/login'>Login</NavLink></li>
-                      </>
-                  } 
-                </ul>
-              </div>
-            </div>
-            <label htmlFor="dashboard-drawer" tabIndex={2} className="btn btn-ghost lg:hidden bg-white">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
-            </label>
+      {/* Mobile Menu */}
+      {mobileMenuOpen && (
+        <div className="lg:hidden bg-gray-900/95 backdrop-blur-lg border-t border-emerald-900">
+          <div className="px-6 py-8 flex flex-col gap-6 text-lg font-semibold">
+            <NavLink
+              to="/home"
+              className="text-gray-300 hover:text-emerald-400 transition"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Home
+            </NavLink>
+            <NavLink
+              to="/blog"
+              className="text-gray-300 hover:text-emerald-400 transition"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Blog
+            </NavLink>
+
+            {user?.uid ? (
+              <>
+                <NavLink
+                  to="/myproduct"
+                  className="text-gray-300 hover:text-emerald-400 transition"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  My Product
+                </NavLink>
+                <NavLink
+                  to="/dashboard"
+                  className="text-gray-300 hover:text-emerald-400 transition"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Dashboard
+                </NavLink>
+
+                <div className="flex items-center gap-4 pt-6 border-t border-emerald-800">
+                  <div className="avatar">
+                    <div className="w-12 rounded-full ring ring-emerald-400 ring-offset-2 ring-offset-gray-900">
+                      {user?.photoURL ? (
+                        <img src={user.photoURL} alt="Profile" />
+                      ) : (
+                        <div className="bg-emerald-600 w-full h-full flex items-center justify-center text-white font-bold text-xl">
+                          {user?.displayName?.charAt(0).toUpperCase() || 'U'}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  <button
+                    onClick={logOut}
+                    className="text-red-400 hover:text-red-300 font-medium"
+                  >
+                    Logout
+                  </button>
+                </div>
+              </>
+            ) : (
+              <NavLink
+                to="/login"
+                className="text-emerald-400 font-bold text-xl"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Login
+              </NavLink>
+            )}
           </div>
         </div>
-      </div>
+      )}
+    </nav>
   );
 };
 

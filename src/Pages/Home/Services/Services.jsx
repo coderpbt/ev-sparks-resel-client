@@ -1,37 +1,83 @@
-import React, { useEffect, useState } from 'react';
-import ServicesTemplate from './ServicesTemplate';
-
-import { PhotoProvider } from 'react-photo-view';
+import React from 'react';
 
 const Services = () => {
-  const [services, setServices] = useState([]);
-
-  useEffect(() => {
-    fetch('https://b6a11-service-review-server-side-coderpbt.vercel.app/services')
-      .then(res => res.json())
-      .then(data => setServices(data))
-  }, [])
+ 
   return (
-    <div className='bg-[#fff]'>
-      <div className='xl:w-[1200px] mx-auto w-[95%]'>
-        <div className='w-[100%]'>
-          <div className='text-center'>
-            <h2 className='text-4xl text-black font-bold pb-7'>Our Services</h2>
-            <p className='text-base text-black mb-3'>The best form of health is when you don’t have to worry about it. We believe in the natural way of managing weight. We specialise in adopting long-term lifestyle modifications to maintain a healthy body weight based on personal requirements.</p>
+    <>
+        <section className="py-20 bg-black">
+          <div className="max-w-7xl mx-auto px-6 text-center">
+            <h2 className="text-5xl font-orbitron mb-16 text-emerald-400">Why EV Sparks?</h2>
+            <div className="grid md:grid-cols-4 gap-10">
+              <div className="bg-gray-900 p-10 rounded-2xl card-hover">
+                <i className="fa-solid fa-shield-halved text-6xl text-emerald-400 mb-4"></i>
+                <h3 className="text-2xl font-bold">100% Verified Sellers</h3>
+              </div>
+              <div className="bg-gray-900 p-10 rounded-2xl card-hover">
+                <i className="fa-solid fa-bolt text-6xl text-cyan-400 mb-4"></i>
+                <h3 className="text-2xl font-bold">Instant Booking</h3>
+              </div>
+              <div className="bg-gray-900 p-10 rounded-2xl card-hover">
+                <i className="fa-solid fa-truck-fast text-6xl text-yellow-400 mb-4"></i>
+                <h3 className="text-2xl font-bold">Nationwide Delivery</h3>
+              </div>
+              <div className="bg-gray-900 p-10 rounded-2xl card-hover">
+                <i className="fa-solid fa-handshake text-6xl text-purple-400 mb-4"></i>
+                <h3 className="text-2xl font-bold">Zero Commission</h3>
+              </div>
+            </div>
           </div>
+       </section>
+        <section className="py-20 bg-gradient-to-r from-emerald-900 to-cyan-900">
+          <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-4 text-center">
+            <div>
+              <h3 className="text-6xl font-orbitron text-white">50K+</h3>
+              <p className="text-2xl mt-4">Happy Buyers</p>
+            </div>
+            <div>
+              <h3 className="text-6xl font-orbitron text-white">12K+</h3>
+              <p className="text-2xl mt-4">Cars Sold</p>
+            </div>
+            <div>
+              <h3 className="text-6xl font-orbitron text-white">4.9</h3>
+              <p className="text-2xl mt-4">User Rating</p>
+            </div>
+            <div>
+              <h3 className="text-6xl font-orbitron text-white">24/7</h3>
+              <p className="text-2xl mt-4">Support</p>
+            </div>
+          </div>
+        </section>
 
-          <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 pt-2'>
-           <PhotoProvider>
-            {
-              services.map(item => <ServicesTemplate key={item._id} item={item} />)
-            }
-            </PhotoProvider>
+
+        <section id="sell" className="py-20 bg-black text-center">
+          <h2 className="text-6xl font-orbitron mb-10">Sell Your Car in 5 Minutes</h2>
+          <p className="text-2xl text-gray-400 mb-10">Get the best price • Reach 100,000+ buyers instantly</p>
+          <button className="bg-emerald-500 text-black px-16 py-6 rounded-full text-2xl font-bold hover:bg-emerald-400 glow">
+            Post Your Ad Free Now
+          </button>
+        </section>
+
+
+        <section className="py-20 bg-gray-900">
+          <div className="max-w-7xl mx-auto px-6">
+            <h2 className="text-5xl font-orbitron text-center mb-16 text-cyan-400">What Our Users Say</h2>
+            <div className="grid md:grid-cols-3 gap-10">
+              <div className="bg-black p-8 rounded-2xl border border-emerald-800">
+                <p className="text-lg italic">"Sold my Premio in just 3 days! Best platform in Bangladesh"</p>
+                <p className="mt-6 font-bold text-emerald-400">- Rahman, Dhaka</p>
+              </div>
+                            <div className="bg-black p-8 rounded-2xl border border-emerald-800">
+                <p className="text-lg italic">"Sold my Premio in just 3 days! Best platform in Bangladesh"</p>
+                <p className="mt-6 font-bold text-emerald-400">- Rahman, Dhaka</p>
+              </div>
+                            <div className="bg-black p-8 rounded-2xl border border-emerald-800">
+                <p className="text-lg italic">"Sold my Premio in just 3 days! Best platform in Bangladesh"</p>
+                <p className="mt-6 font-bold text-emerald-400">- Rahman, Dhaka</p>
+              </div>
+            </div>
           </div>
-          <div className="card-actions justify-center py-12">
-      </div>
-        </div>
-      </div>
-    </div>
+        </section>
+    </>
   );
 };
 

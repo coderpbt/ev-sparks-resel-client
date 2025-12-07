@@ -1,12 +1,17 @@
 import React from 'react';
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <div className='py-8 bg-[#3e0c0c]'>
-       <div className='xl:w-[1200px] mx-auto w-[95%]'>
-          <p className='text-white text-xl text-center'>© 2022-2024 All rights reserved Ev Sperks</p>
-       </div>
-    </div>
+    <footer className="bg-black border-t border-gray-800 py-12">
+      <div className="max-w-7xl mx-auto px-6 text-center">
+        <h1 className="text-4xl font-orbitron text-emerald-400 mb-6">EV Sparks</h1>
+        <p className="text-gray-400 text-lg">
+          © {currentYear} EV Sparks • All Rights Reserved • Bangladesh's #1 Used Car Marketplace
+        </p>
+      </div>
+    </footer>
   );
 };
 
