@@ -11,17 +11,17 @@ const Register = () => {
   const {createUser, updateProfileName,loading} = useContext(AuthContext)
 
   const [createUserEmil, setCreateUserEmil] = useState("")
-  const [refresh, setRefresh] = useState(true)
+  // const [refresh, setRefresh] = useState(true)
   const [token] = useToken(createUserEmil)
   const navigate = useNavigate();
 
+  // Navigate when token is received
   useEffect(() => {
     if (token) {
-      setRefresh(!refresh)
-      navigate("/")
+      console.log('Token received, navigating to home');
+      navigate("/");
     }
-
-  },[token])
+  }, [token, navigate]);
 
 
 
