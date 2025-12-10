@@ -7,14 +7,14 @@ const AllSeller = () => {
   const { data: users = [], refetch } = useQuery({
     queryKey: ['users'],
     queryFn: async () => {
-      const res = await fetch(`https://b612-used-products-resale-server-side-coderpbt.vercel.app/users`);
+      const res = await fetch(`http://localhost:5000/users`);
       const data = await res.json();
       return data;
     }
   });
 
   const handleMakeAdmin = id => {
-    fetch(`https://b612-used-products-resale-server-side-coderpbt.vercel.app/users/admin/${id}`, {
+    fetch(`http://localhost:5000/users/admin/${id}`, {
       method: 'PUT',
       headers: {
         authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -36,7 +36,7 @@ const AllSeller = () => {
     <div className="overflow-x-auto">
       <table className="table w-full">
         <thead>
-          <tr>
+          <tr className='text-black'>
             <th></th>
             <th>Name</th>
             <th>Email</th>
@@ -47,7 +47,7 @@ const AllSeller = () => {
         </thead>
         <tbody>
           {
-            users.map((user, i) => <tr key={user._id}>
+            users.map((user, i) => <tr className='text-black' key={user._id}>
               <th>{i + 1}</th>
               <td>{user.name}</td>
               <td>{user.email}</td>

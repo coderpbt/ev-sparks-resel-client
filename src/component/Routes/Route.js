@@ -47,7 +47,7 @@ export const router = createBrowserRouter([
       },
       {
         path:'/categoris/:id',
-        loader: ({params}) => fetch(`https://b612-used-products-resale-server-side-coderpbt.vercel.app/categoris/${params.id}`),
+        loader: ({params}) => fetch(`http://localhost:5000/categoris/${params.id}`),
         element : <PrivateRoute><CatagoryWiseProduct /></PrivateRoute>
       }
 

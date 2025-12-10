@@ -70,7 +70,7 @@ const Register = () => {
 
   const saveUser = (name, email, role) =>{
     const user ={name, email, role};
-    fetch('https://b612-used-products-resale-server-side-coderpbt.vercel.app/users', {
+    fetch('http://localhost:5000/users', {
         method: 'POST',
         headers: {
             'content-type': 'application/json'
@@ -101,26 +101,26 @@ const Register = () => {
                 <label className="label">
                   <span className="label-text">Name</span>
                 </label>
-                <input type="text" name='name' placeholder="Enter Full Name" className="input input-bordered" />
+                <input type="text" name='name' placeholder="Enter Full Name" className="input input-bordered text-black" />
               </div>
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Photo URL</span>
                 </label>
-                <input type="text" name='photoURL' placeholder="Enter photo URL" className="input input-bordered" />
+                <input type="text" name='photoURL' placeholder="Enter photo URL" className="input input-bordered text-black" />
               </div>
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Email</span>
                 </label>
-                <input type="email" name='email' placeholder="Enter Email" className="input input-bordered" />
+                <input type="email" name='email' placeholder="Enter Email" className="input input-bordered text-black" />
               </div>
 
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Select Your Account Options</span>
                 </label>
-                <select className="input input-bordered" name="role" id="">
+                <select className="input input-bordered text-black" name="role" id="">
                   <option value='buyer'>Buyer</option>
                   <option value='seller'>Seller</option>
                 </select>
@@ -130,7 +130,7 @@ const Register = () => {
                 <label className="label">
                   <span className="label-text">Password</span>
                 </label>
-                <input type="password" name='password' placeholder="Enter Password" className="input input-bordered" />
+                <input type="password" name='password' placeholder="Enter Password" className="input input-bordered text-black" />
                 <label className="label">
                   <small>Already a member? <Link to='/login' className="label-text-alt font-bold link link-hover">LogIn</Link></small>
                 </label>

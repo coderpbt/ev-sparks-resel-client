@@ -8,7 +8,7 @@ import MyProductsTem from './MyProductsTem';
 const MyProducts = () => {
     const { user } = useContext(AuthContext)
 
-    const url = `https://b612-used-products-resale-server-side-coderpbt.vercel.app/productswise?email=${user?.email}`
+    const url = `http://localhost:5000/productswise?email=${user?.email}`
 
     const { data: productswise = [], isLoading, refetch } = useQuery({
         queryKey: ['productswise', user?.email],
@@ -27,7 +27,7 @@ const MyProducts = () => {
 
 
     const handleDelete = item => {
-        fetch(`https://b612-used-products-resale-server-side-coderpbt.vercel.app/productswise/${item._id}`, {
+        fetch(`http://localhost:5000/productswise/${item._id}`, {
             method: 'DELETE', 
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -46,12 +46,21 @@ const MyProducts = () => {
         return <Loading />
     }
 
+    if (productswise.length === 0) {
+        return (
+            <div className="text-center py-20 text-gray-500 text-xl">
+                No Product yet!
+            </div>
+        );
+    }
+
     return (
         <div>
             <h3 className="text-3xl mb-5 mt-5">My Product</h3>
             <div className='xl:w-[1200px] mx-auto w-[95%]'>
                 <div className="flex justify-between flex-wrap my-10">
                     <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 pt-2'>
+                        
                         {
                             productswise?.map(item => <MyProductsTem item={item} key={item._id} handleDelete={handleDelete} />)
                         }

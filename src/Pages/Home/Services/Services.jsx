@@ -1,4 +1,5 @@
 import React from 'react';
+import PopularProduct from '../PopularProduct/PopularProduct';
 
 const Services = () => {
  
@@ -27,6 +28,7 @@ const Services = () => {
             </div>
           </div>
        </section>
+       <PopularProduct />
         <section className="py-20 bg-gradient-to-r from-emerald-900 to-cyan-900">
           <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-4 text-center">
             <div>

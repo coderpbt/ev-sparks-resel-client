@@ -4,7 +4,7 @@ import b2 from '../../../images/banner-02.jpg';
 
 const Banner = () => {
   return (
-      <section className=" bg-gradient-to-br from-black via-gray-900 to-emerald-950 flex items-center overflow-hidden  py-20">
+      <section className=" bg-gradient-to-br from-black via-gray-900 to-emerald-950 flex items-center overflow-hidden">
         <div className="xl:w-[1200px] mx-auto w-[95%] px-6 grid md:grid-cols-[7fr_5fr] items-center gap-8">
           <div className='text-left'>
             <h1 className="text-3xl md:text-7xl font-orbitron font-black leading-tight">

@@ -8,7 +8,7 @@ const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 w-full z-50 bg-gray-950/95 backdrop-blur-lg border-b border-emerald-900">
+    <nav className="w-full z-50 bg-gray-950/95 backdrop-blur-lg border-b border-emerald-900">
       <div className="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
         
         {/* Logo */}

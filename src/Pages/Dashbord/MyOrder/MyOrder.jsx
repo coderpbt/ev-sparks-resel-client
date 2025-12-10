@@ -21,7 +21,7 @@ const MyOrder = () => {
             }
 
             const res = await fetch(
-                `https://b612-used-products-resale-server-side-coderpbt.vercel.app/bookings?email=${user?.email}`, 
+                `http://localhost:5000/bookings?email=${user?.email}`, 
                 {
                     headers: {
                         'authorization': `Bearer ${token}`
@@ -81,7 +81,7 @@ const MyOrder = () => {
             <div className="overflow-x-auto">
                 <table className="table w-full">
                     <thead>
-                        <tr>
+                        <tr className='text-black'>
                             <th>#</th>
                             <th>Seller</th>
                             <th>Product</th>
@@ -92,22 +92,20 @@ const MyOrder = () => {
                     </thead>
                     <tbody>
                         {bookings.map((booking, i) => (
-                            <tr key={booking._id}>
+                            <tr className='text-black' key={booking._id}>
                                 <th>{i + 1}</th>
                                 <td>{booking.sellerName}</td>
                                 <td>{booking.productName}</td>
                                 <td>{booking.bookinDate}</td>
                                 <td>{booking.locationmetting}</td>
                                 <td>
-                                    {booking.resale_price && !booking.paid && (
-                                        <Link to={`/dashboard/payment/${booking._id}`}>
-                                            <button className="btn btn-primary btn-sm">
-                                                Pay
-                                            </button>
+                                    {booking.reselPrice && !booking.paid && (
+                                        <Link className="btn btn-primary btn-sm text-white" to={`/dashboard/payment/${booking._id}`}>
+                                            Pay
                                         </Link>
                                     )}
                                     {booking.paid && (
-                                        <span className="text-success font-bold">Paid</span>
+                                        <span className="font-bold text-black">Paid</span>
                                     )}
                                 </td>
                             </tr>
