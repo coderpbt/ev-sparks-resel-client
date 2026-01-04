@@ -90,43 +90,77 @@ const Login = () => {
 
   return (
     <div className="hero min-h-screen">
-      <div className="hero-content lg:w-[75%] flex-col w-[90%]">
+      <div className="hero-content lg:w-[75%] flex-col w-[90%]">        
         <div className="text-center lg:text-left">
-          <h1 className="text-3xl text-white font-bold">Login now</h1>
+          <h1 className="text-3xl font-bold text-white">Login now</h1>
         </div>
-        <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+
+        <div className="card w-full max-w-sm shadow-2xl bg-neutral-focus">
           <div className="card-body">
+
             <form onSubmit={handleOnSubmit}>
+              {/* Email */}
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Email</span>
+                  <span className="label-text text-gray-300">Email</span>
                 </label>
-                <input type="email" name='email' placeholder="Enter Email" className="input input-bordered" required />
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Enter Email"
+                  className="input input-bordered bg-neutral text-white border-gray-600 placeholder-gray-400"
+                  required
+                />
               </div>
-              <div className="form-control">
+
+              {/* Password */}
+              <div className="form-control mt-3">
                 <label className="label">
-                  <span className="label-text">Password</span>
+                  <span className="label-text text-gray-300">Password</span>
                 </label>
-                <input type="password" name='password' placeholder="Enter Password" className="input input-bordered" required />
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Enter Password"
+                  className="input input-bordered bg-neutral text-white border-gray-600 placeholder-gray-400"
+                  required
+                />
                 <label className="label">
-                  <small>Not a member yet? <Link to='/register' className="label-text-alt font-bold link link-hover">Register</Link></small>
+                  <small className="text-gray-400">
+                    Not a member yet?{" "}
+                    <Link
+                      to="/register"
+                      className="font-bold text-white link-hover"
+                    >
+                      Register
+                    </Link>
+                  </small>
                 </label>
               </div>
+
+              {/* Login Button */}
               <div className="form-control mt-6">
-                <button className="btn btn-primary">Login</button>
-              </div>
-            </form>
-            <div className='flex justify-center'>
-              <div className="form-control mr-1 mt-6">
-                <button onClick={handleGoogleSub} className="btn btn-primary capitalize text-[12px]">
-                  <FaGoogle className='mr-1' /> Login With Google
+                <button className="btn btn-primary w-full">
+                  Login
                 </button>
               </div>
+            </form>
+
+            {/* Google Login */}
+            <div className="flex justify-center mt-4">
+              <button
+                onClick={handleGoogleSub}
+                className="btn btn-outline text-[12px] text-white"
+              >
+                <FaGoogle className="mr-2 text-white" /> Login with Google
+              </button>
             </div>
+
           </div>
         </div>
       </div>
     </div>
+
   );
 };
 

@@ -13,6 +13,7 @@ import Main from "../Layout/Main";
 import Login from "../Sheard/Login/Login";
 import Register from "../Sheard/Register/Register";
 import AdminRoute from "./AdminRoute/AdminRoute";
+import Shop from "../../Pages/Shop/Shop";
 
 
 export const router = createBrowserRouter([
@@ -28,6 +29,10 @@ export const router = createBrowserRouter([
       {
         path:'/home',
         element:<Home />
+      },
+       {
+        path:'/shop',
+        element: <Shop />
       },
       {
         path:'/blog',

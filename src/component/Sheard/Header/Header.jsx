@@ -20,6 +20,7 @@ const Header = () => {
         {/* Desktop Menu */}
         <div className="hidden lg:flex items-center gap-10 text-lg font-semibold">
           <NavLink to="/home" className="text-gray-300 hover:text-emerald-400 transition">Home</NavLink>
+          <NavLink to="/shop" className="text-gray-300 hover:text-emerald-400 transition">Shop</NavLink>
           <NavLink to="/blog" className="text-gray-300 hover:text-emerald-400 transition">Blog</NavLink>
 
           {user?.uid ? (
@@ -76,6 +77,13 @@ const Header = () => {
               onClick={() => setMobileMenuOpen(false)}
             >
               Home
+            </NavLink>
+             <NavLink
+              to="/shop"
+              className="text-gray-300 hover:text-emerald-400 transition"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Shop
             </NavLink>
             <NavLink
               to="/blog"

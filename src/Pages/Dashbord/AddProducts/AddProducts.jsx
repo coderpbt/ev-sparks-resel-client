@@ -13,7 +13,7 @@ const AddProducts = () => {
     const { data: productSpecialty, isLoading } = useQuery({
         queryKey: ['specialty'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/productSpecialty');
+            const res = await fetch('http://localhost:5000/categoris');
             return res.json();
         }
     });
