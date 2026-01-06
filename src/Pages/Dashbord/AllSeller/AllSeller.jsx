@@ -29,6 +29,23 @@ const AllSeller = () => {
       })
   }
 
+
+      const handleDelete = item => {
+          fetch(`http://localhost:5000/users/${item._id}`, {
+              method: 'DELETE', 
+              headers: {
+                  authorization: `bearer ${localStorage.getItem('accessToken')}`
+              }
+          })
+          .then(res => res.json())
+          .then(data => {
+              if(data.deletedCount > 0){
+                  refetch();
+                  toast.success(`product deleted successfully`)
+              }
+          })
+      }
+
   
   return (
     <div>
@@ -53,7 +70,7 @@ const AllSeller = () => {
               <td>{user.email}</td>
               <td>{user.role}</td>
               <td>{user?.role !== 'admin' && <button onClick={() => handleMakeAdmin(user._id)} className='btn btn-xs btn-primary'>Make Admin</button>}</td>
-              <td><button className='btn btn-xs btn-danger'>Delete</button></td>
+              <td><button onClick={() => handleDelete(user)} className='btn btn-xs btn-danger'>Delete</button></td>
             </tr>)
           }
 

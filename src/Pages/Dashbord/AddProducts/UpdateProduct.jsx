@@ -1,24 +1,31 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Loading from '../../../component/Sheard/Loading/Loading';
 import { AuthContext } from '../../../context/DpiContext/ContextProvider';
 
-const AddProducts = () => {
-    const {user} = useContext(AuthContext);
-    const { register, handleSubmit, formState: { errors } } = useForm({
-  defaultValues: {
-    email: user?.email || '',
-  },
-});
-    const date = new Date().toLocaleTimeString()
+const UpdateProduct = () => {
+    const { id } = useParams();
+    const { user } = useContext(AuthContext);
     const navigate = useNavigate();
-    
-console.log("user", user);
+    const date = new Date().toLocaleTimeString();
+    console.log("user", user);
+    const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
-    const { data: productSpecialty, isLoading } = useQuery({
+    // Fetch existing product data
+    const { data: product, isLoading: productLoading } = useQuery({
+        queryKey: ['product', id],
+        queryFn: async () => {
+            const res = await fetch(`http://localhost:5000/productswise/${id}`);
+            const data = await res.json();
+            return data[0]; // Since your API returns an array
+        }
+    });
+
+    // Fetch categories
+    const { data: productSpecialty, isLoading: categoriesLoading } = useQuery({
         queryKey: ['specialty'],
         queryFn: async () => {
             const res = await fetch('http://localhost:5000/categoris');
@@ -26,76 +33,110 @@ console.log("user", user);
         }
     });
 
-    const handleAddProduct = data => {
-        const image = data.image[0];
-        const formData = new FormData();
-        formData.append("image", image);
+    // Populate form with existing data
+    useEffect(() => {
+        if (product) {
+            reset({
+                name: product.productName,
+                location: product.location,
+                reprice: product.reselPrice,
+                orgprice: product.originPrice,
+                usesofyr: product.useOfYear,
+                pcondition: product.productCondition,
+                specialty: product.category_id,
+                email: product.email,
+                yname: product.yourName,
+                description: product.productDiscription,
+                phone: product.phone
+            });
+        }
+    }, [product, reset]);
 
-        const url = `https://api.imgbb.com/1/upload?key=e64683542c7584cfb50e38f7e68acac3`;
+    const handleUpdateProduct = data => {
+        // Check if new image is uploaded
+        if (data.image && data.image[0]) {
+            const image = data.image[0];
+            const formData = new FormData();
+            formData.append("image", image);
 
-        fetch(url, {
-            method: 'POST',
-            body: formData
+            const url = `https://api.imgbb.com/1/upload?key=e64683542c7584cfb50e38f7e68acac3`;
+
+            fetch(url, {
+                method: 'POST',
+                body: formData
+            })
+            .then(res => res.json())
+            .then(imgData => {
+                if (imgData.success) {
+                    updateProductData(imgData.data.url, data);
+                }
+            });
+        } else {
+            // Keep existing image
+            updateProductData(product.image, data);
+        }
+    };
+
+    const updateProductData = (imageUrl, data) => {
+        const updatedProduct = {
+            image: imageUrl,
+            productName: data.name,
+            location: data.location,
+            reselPrice: data.reprice,
+            originPrice: data.orgprice,
+            useOfYear: data.usesofyr,
+            productCondition: data.pcondition,
+            category_id: data.specialty,
+            yourName: data.yname,
+            productDiscription: data.description,
+            phone: data.phone,
+            date
+        };
+
+        fetch(`http://localhost:5000/productswise/${id}`, {
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            },
+            body: JSON.stringify(updatedProduct)
         })
         .then(res => res.json())
-        .then(imgData => {
-            if (imgData.success) {
-                const product = {
-                    image: imgData.data.url,
-                    productName: data.name,
-                    location: data.location,
-                    reselPrice: data.reprice,
-                    originPrice: data.orgprice,
-                    useOfYear: data.usesofyr,
-                    productCondition: data.pcondition,
-                    category_id: data.specialty,
-                    email: user?.email,
-                    yourName: data.yname,
-                    productDiscription: data.description,
-                    phone: data.phone,
-                    date
-                };
-
-                fetch('http://localhost:5000/productswise', {
-                    method: 'POST',
-                    headers: {
-                        'content-type': 'application/json',
-                        authorization: `bearer ${localStorage.getItem('accessToken')}`
-                    },
-                    body: JSON.stringify(product)
-                })
-                .then(res => res.json())
-                .then(result => {
-                    toast.success(`${data.name} added successfully`);
-                    navigate('/myproduct');
-                });
-            }
+        .then(result => {
+            toast.success(`${data.name} updated successfully`);
+            navigate('/myproduct');
+        })
+        .catch(error => {
+            toast.error('Failed to update product');
+            console.error(error);
         });
     };
 
-    if (isLoading) {
+    if (productLoading || categoriesLoading) {
         return <Loading />;
     }
 
     return (
         <div className="p-9 bg-[#0f0f0f] text-gray-200"> 
-            <h2 className="text-4xl font-bold mb-8 text-gray-100">Add A Product</h2>
-            <form onSubmit={handleSubmit(handleAddProduct)}>
+            <h2 className="text-4xl font-bold mb-8 text-gray-100">Update Product</h2>
+            <form onSubmit={handleSubmit(handleUpdateProduct)}>
                 <div className="grid lg:grid-cols-2 grid-cols-1 gap-8">
 
-                    {/* Common class for all form items */}
-                    {/** Grouped styling for Dark Theme */}
-
+                    {/* PRODUCT IMAGE */}
                     <div className="form-control w-full">
                         <label className="label">
-                            <span className="label-text text-gray-300">Product Image</span>
+                            <span className="label-text text-gray-300">Product Image (Leave empty to keep current)</span>
                         </label>
                         <input 
                             type="file"
-                            {...register("image", { required: "Photo is required" })}
+                            {...register("image")}
                             className="file-input file-input-bordered w-full bg-[#1b1b1b] border-gray-600 text-gray-200"
                         />
-                        {errors.image && <p className="text-red-400 text-sm">{errors.image.message}</p>}
+                        {product?.image && (
+                            <div className="mt-2">
+                                <img src={product.image} alt="Current" className="w-32 h-32 object-cover rounded" />
+                            </div>
+                        )}
                     </div>
 
                     {/* PRODUCT NAME */}
@@ -173,22 +214,21 @@ console.log("user", user);
                             {...register('specialty')}
                             className="select select-bordered w-full bg-[#1b1b1b] border-gray-600 text-gray-200"
                         >
-                            {productSpecialty.map(s => (
+                            {productSpecialty?.map(s => (
                                 <option key={s._id} value={s._id}>{s.name}</option>
                             ))}
                         </select>
                     </div>
 
-                    {/* EMAIL */}
+                    {/* EMAIL - DISABLED */}
                     <div className="form-control w-full">
-                        <label className="label"><span className="label-text text-gray-300">Your Email</span></label>
+                        <label className="label"><span className="label-text text-gray-300">Your Email (Cannot be changed)</span></label>
                         <input 
                             disabled
                             type="email"
-                            {...register("email", { required: true })}
-                            className="input input-bordered w-full bg-[#1b1b1b] border-gray-600 text-gray-200 disabled:bg-[#1b1b1b]"
+                            {...register("email")}
+                            className="input input-bordered w-full bg-[#1b1b1b] border-gray-600 text-gray-400 disabled:bg-[#2a2a2a] disabled:cursor-not-allowed"
                         />
-                        {errors.email && <p className="text-red-400 text-sm">{errors.email.message}</p>}
                     </div>
 
                     {/* YOUR NAME */}
@@ -196,7 +236,7 @@ console.log("user", user);
                         <label className="label"><span className="label-text text-gray-300">Your Name</span></label>
                         <input 
                             type="text"
-                            {...register("yname", { required: true })}
+                            {...register("yname", { required: "Name is required" })}
                             className="input input-bordered w-full bg-[#1b1b1b] border-gray-600 text-gray-200"
                         />
                         {errors.yname && <p className="text-red-400 text-sm">{errors.yname.message}</p>}
@@ -207,7 +247,7 @@ console.log("user", user);
                         <label className="label"><span className="label-text text-gray-300">Product Description</span></label>
                         <input 
                             type="text"
-                            {...register("description", { required: true })}
+                            {...register("description", { required: "Description is required" })}
                             className="input input-bordered w-full bg-[#1b1b1b] border-gray-600 text-gray-200"
                         />
                         {errors.description && <p className="text-red-400 text-sm">{errors.description.message}</p>}
@@ -218,7 +258,7 @@ console.log("user", user);
                         <label className="label"><span className="label-text text-gray-300">Your Phone</span></label>
                         <input 
                             type="text"
-                            {...register("phone", { required: true })}
+                            {...register("phone", { required: "Phone is required" })}
                             className="input input-bordered w-full bg-[#1b1b1b] border-gray-600 text-gray-200"
                         />
                         {errors.phone && <p className="text-red-400 text-sm">{errors.phone.message}</p>}
@@ -226,15 +266,14 @@ console.log("user", user);
 
                     {/* SUBMIT BUTTON */}
                     <input 
-                        className="btn w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white border-none"
-                        value="Add Product"
+                        className="btn w-full mt-4 bg-green-600 hover:bg-green-700 text-white border-none"
+                        value="Update Product"
                         type="submit"
                     />
                 </div>
             </form>
-
         </div>
     );
 };
 
-export default AddProducts;
+export default UpdateProduct;

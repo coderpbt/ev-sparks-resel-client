@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import BookingModal from '../CatagoryWiseProduct/BookingModal/BookingModal';
 import CatagoryWiseProductTem from '../CatagoryWiseProduct/CatagoryWiseProductTem';
+import PrivateRoute from '../../context/PrivateRoute/PrivateRoute';
 
 const Shop = () => {
     const [product, setProduct] = useState([]);
@@ -28,10 +29,12 @@ const Shop = () => {
         </div>
            {
                 book && 
-                <BookingModal 
-                book={book}
-                setBook={setBook}
-                />
+                <PrivateRoute>
+                  <BookingModal 
+                  book={book}
+                  setBook={setBook}
+                  />
+                </PrivateRoute>
             }
       </div>
     </>

@@ -1,20 +1,27 @@
 import React from 'react';
 import b1 from '../../../images/banner-01.jpg';
 import b2 from '../../../images/banner-02.jpg';
+import { Link } from 'react-router-dom';
 
 const Banner = () => {
   return (
       <section className=" bg-gradient-to-br from-black via-gray-900 to-emerald-950 flex items-center overflow-hidden">
-        <div className="xl:w-[1200px] mx-auto w-[95%] px-6 grid md:grid-cols-[7fr_5fr] items-center gap-8">
+        <div className="xl:w-[1200px] mx-auto w-[95%] px-6 grid lg:grid-cols-[7fr_5fr] items-center gap-8">
           <div className='text-left'>
-            <h1 className="text-3xl md:text-7xl font-orbitron font-black leading-tight">
+            <h1 className="text-3xl mt-3 md:text-5xl lg:text-7xl font-orbitron font-black leading-tight">
               Buy & Sell Premium<span class="text-emerald-400">  Used Cars in Bangladesh</span>
               
             </h1>
             <p className="text-xl text-gray-300 mt-6">Trusted by 50,000+ buyers • Zero Commission • Verified Sellers</p>
             <div className="mt-10 flex gap-6">
-              <button className="bg-emerald-500 text-black px-10 py-5 rounded-full text-xl font-bold hover:bg-emerald-400">Browse Cars</button>
-              <button className="border-2 border-emerald-400 px-10 py-5 rounded-full text-xl font-bold hover:bg-emerald-400 hover:text-black">Sell Your Car</button>
+              <button className="bg-emerald-500 text-black px-4 md:px-10 py-3 md:py-5 rounded-full text-xl font-bold hover:bg-emerald-400">
+                 <Link
+                    to="/shop"
+                  >
+                    Browse Cars
+                  </Link>
+                </button>
+              <button className="border-2 border-emerald-400 px-4 md:px-10 py-3 md:py-5 rounded-full text-xl font-bold hover:bg-emerald-400 hover:text-black">Sell Your Car</button>
             </div>
           </div>
           <div className="relative flex flex-col gap-8 md:gap-12 max-w-5xl mx-auto px-4 py-12">

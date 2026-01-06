@@ -30,7 +30,7 @@ const CatagoryWiseProductTem = ({ item, setBook }) => {
           {productName}
         </h2>
 
-        <div className="flex justify-between gap-3 text-sm mt-1 mb-4 items-center">
+        <div className="flex flex-col sm:flex-row justify-start md:justify-between gap-3 text-sm mt-1 mb-4 items-start md:items-center">
           <p className="text-gray-400 text-[20px]">
             Posted by{" "}
             <span className="text-blue-400 font-medium underline">

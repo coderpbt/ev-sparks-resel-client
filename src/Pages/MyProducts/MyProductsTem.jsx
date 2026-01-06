@@ -1,10 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const MyProductsTem = ({item, handleDelete}) => {
   const { image, productName, location, reselPrice, originPrice, productCondition, date } = item;
   return (
     <div>
-            <div className="card card-compact shadow-xl">
+      <div className="card card-compact shadow-xl">
         <figure>
           <img src={image} alt="logos" />
         </figure>
@@ -22,7 +23,11 @@ const MyProductsTem = ({item, handleDelete}) => {
             >
               Delete
             </button>
-            <button className="btn btn-primary text-white">advertise</button>
+             <button
+              className="btn btn-primary text-white"
+            >
+              <Link to={`/dashboard/updateproduct/${item._id}`}>Edit</Link>
+            </button>
           </div>
         </div>
       </div>

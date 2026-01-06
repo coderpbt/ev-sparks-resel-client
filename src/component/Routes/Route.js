@@ -14,6 +14,7 @@ import Login from "../Sheard/Login/Login";
 import Register from "../Sheard/Register/Register";
 import AdminRoute from "./AdminRoute/AdminRoute";
 import Shop from "../../Pages/Shop/Shop";
+import UpdateProduct from "../../Pages/Dashbord/AddProducts/UpdateProduct";
 
 
 export const router = createBrowserRouter([
@@ -73,6 +74,11 @@ export const router = createBrowserRouter([
       {
         path: '/dashboard/addproduct',
         element: <AddProducts />
+      },
+      {
+        path: '/dashboard/updateproduct/:id',
+         loader: ({params}) => fetch(`http://localhost:5000/productswise/${params.id}`),
+        element: <UpdateProduct />
       }
     ]
   }

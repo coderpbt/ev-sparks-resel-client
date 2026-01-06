@@ -13,13 +13,13 @@ const Catagory = () => {
 
   return (
     <>
-    <section id="categories" className="py-20 bg-gray-900">
+    <section id="categories" className="py-10 lg:py-20 bg-gray-900">
   <div className="max-w-7xl mx-auto px-6 text-center">
-    <h2 className="text-5xl font-orbitron mb-16 text-cyan-400">
+    <h2 className="text-2xl md:text-5xl font-orbitron mb-16 text-cyan-400">
       Popular Brands
     </h2>
 
-    <div className="grid grid-cols-3 md:grid-cols-6 gap-10">
+    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-10">
       {catagorys.map((catagory) => (
         <Link
           key={catagory._id}
