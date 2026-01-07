@@ -15,6 +15,8 @@ import Register from "../Sheard/Register/Register";
 import AdminRoute from "./AdminRoute/AdminRoute";
 import Shop from "../../Pages/Shop/Shop";
 import UpdateProduct from "../../Pages/Dashbord/AddProducts/UpdateProduct";
+import Payment from "../../Pages/Dashbord/Payment/Payment";
+
 
 
 export const router = createBrowserRouter([
@@ -53,7 +55,7 @@ export const router = createBrowserRouter([
       },
       {
         path:'/categoris/:id',
-        loader: ({params}) => fetch(`http://localhost:5000/categoris/${params.id}`),
+        loader: ({params}) => fetch(`https://reseller-ev.vercel.app/categoris/${params.id}`),
         element : <PrivateRoute><CatagoryWiseProduct /></PrivateRoute>
       }
 
@@ -68,6 +70,10 @@ export const router = createBrowserRouter([
         element: <MyOrder />
       },
       {
+        path: '/dashboard/payment/:id',
+        element: <Payment />
+      },
+      {
         path: '/dashboard/allseller',
         element: <AdminRoute><AllSeller /></AdminRoute>
       },
@@ -77,7 +83,7 @@ export const router = createBrowserRouter([
       },
       {
         path: '/dashboard/updateproduct/:id',
-         loader: ({params}) => fetch(`http://localhost:5000/productswise/${params.id}`),
+         loader: ({params}) => fetch(`https://reseller-ev.vercel.app/productswise/${params.id}`),
         element: <UpdateProduct />
       }
     ]

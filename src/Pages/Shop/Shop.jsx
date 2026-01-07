@@ -8,7 +8,7 @@ const Shop = () => {
     const [book, setBook] = useState(null);
     const date = new Date().toLocaleTimeString()
     useEffect(()=>{
-      fetch('http://localhost:5000/productswise/all')
+      fetch('https://reseller-ev.vercel.app/productswise/all')
         .then(res => res.json())
         .then(data => setProduct(data));
     },[])

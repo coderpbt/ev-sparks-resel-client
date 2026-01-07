@@ -22,6 +22,12 @@ const DashboardLayout = () => {
           >
             My Order
           </Link>
+          <Link
+            to="/dashboard/addproduct"
+            className="whitespace-nowrap text-white hover:text-emerald-400"
+          >
+            Add Product
+          </Link>
 
           {isAdmin && (
             <>
@@ -30,12 +36,6 @@ const DashboardLayout = () => {
                 className="whitespace-nowrap text-white hover:text-emerald-400"
               >
                 All Users
-              </Link>
-              <Link
-                to="/dashboard/addproduct"
-                className="whitespace-nowrap text-white hover:text-emerald-400"
-              >
-                Add Product
               </Link>
             </>
           )}
@@ -51,15 +51,15 @@ const DashboardLayout = () => {
             <li>
               <Link to="/dashboard">My Order</Link>
             </li>
-
+             <li>
+                  <Link to="/dashboard/addproduct">Add Product</Link>
+                </li>
             {isAdmin && (
               <>
                 <li>
                   <Link to="/dashboard/allseller">All Users</Link>
                 </li>
-                <li>
-                  <Link to="/dashboard/addproduct">Add Product</Link>
-                </li>
+               
               </>
             )}
           </ul>

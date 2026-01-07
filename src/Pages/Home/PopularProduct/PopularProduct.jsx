@@ -8,7 +8,7 @@ const PopularProduct = () => {
     const [book, setBook] = useState(null);
     const date = new Date().toLocaleTimeString()
     useEffect(()=>{
-      fetch('http://localhost:5000/productswise/popular')
+      fetch('https://reseller-ev.vercel.app/productswise/popular')
         .then(res => res.json())
         .then(data => setPopular(data));
     },[])

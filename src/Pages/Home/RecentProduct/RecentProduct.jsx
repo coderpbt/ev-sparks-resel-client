@@ -8,7 +8,7 @@ const RecentProduct = () => {
   const [book, setBook] = useState(null);
   const date = new Date().toLocaleTimeString()
   useEffect(()=>{
-    fetch('http://localhost:5000/productswise/recent')
+    fetch('https://reseller-ev.vercel.app/productswise/recent')
       .then(res => res.json())
       .then(data => setProduct(data));
   },[])

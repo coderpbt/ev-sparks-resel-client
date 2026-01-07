@@ -7,7 +7,7 @@ const useToken = (email) => {
         if (email) {
             console.log('Fetching token for:', email); // Debug log
             
-            fetch(`http://localhost:5000/jwt?email=${email}`)
+            fetch(`https://reseller-ev.vercel.app/jwt?email=${email}`)
                 .then(res => {
                     console.log('JWT Response status:', res.status); // Debug log
                     return res.json();

@@ -21,7 +21,7 @@ console.log("user", user);
     const { data: productSpecialty, isLoading } = useQuery({
         queryKey: ['specialty'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/categoris');
+            const res = await fetch('https://reseller-ev.vercel.app/categoris');
             return res.json();
         }
     });
@@ -56,7 +56,7 @@ console.log("user", user);
                     date
                 };
 
-                fetch('http://localhost:5000/productswise', {
+                fetch('https://reseller-ev.vercel.app/productswise', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json',

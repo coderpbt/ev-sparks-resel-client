@@ -21,7 +21,7 @@ const MyOrder = () => {
             }
 
             const res = await fetch(
-                `http://localhost:5000/bookings?email=${user?.email}`, 
+                `https://reseller-ev.vercel.app/bookings?email=${user?.email}`, 
                 {
                     headers: {
                         'authorization': `Bearer ${token}`
@@ -102,7 +102,7 @@ const MyOrder = () => {
                                 <td>{booking.locationmetting}</td>
                                 <td>
                                     {booking.reselPrice && !booking.paid && (
-                                        <Link className="btn btn-primary btn-sm text-white" to={`/${booking._id}`}>
+                                        <Link className="btn btn-primary btn-sm text-white" to={`/dashboard/payment/${booking._id}`}>
                                             Pay
                                         </Link>
                                     )}

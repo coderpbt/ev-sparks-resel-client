@@ -18,7 +18,7 @@ const UpdateProduct = () => {
     const { data: product, isLoading: productLoading } = useQuery({
         queryKey: ['product', id],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/productswise/${id}`);
+            const res = await fetch(`https://reseller-ev.vercel.app/productswise/${id}`);
             const data = await res.json();
             return data[0]; // Since your API returns an array
         }
@@ -28,7 +28,7 @@ const UpdateProduct = () => {
     const { data: productSpecialty, isLoading: categoriesLoading } = useQuery({
         queryKey: ['specialty'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/categoris');
+            const res = await fetch('https://reseller-ev.vercel.app/categoris');
             return res.json();
         }
     });
@@ -93,7 +93,7 @@ const UpdateProduct = () => {
             date
         };
 
-        fetch(`http://localhost:5000/productswise/${id}`, {
+        fetch(`https://reseller-ev.vercel.app/productswise/${id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json',
