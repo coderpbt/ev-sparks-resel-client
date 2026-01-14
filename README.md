@@ -77,28 +77,6 @@ Admin Routes     → User Management (admin role required)
 
 ---
 
-## 📡 Key API Endpoints
-
-```http
-# Auth
-GET  /jwt?email=USER_EMAIL
-POST /users
-GET  /users/admin/:email
-
-# Products
-GET/POST /productswise
-PUT/DELETE /productswise/:id
-
-# Bookings
-POST /bookings
-GET /bookings?email=EMAIL
-PATCH /bookings/:id (payment update)
-
-# Payments
-POST /create-payment-intent
-```
-
----
 
 ## 🚀 Getting Started
 
@@ -159,9 +137,4 @@ Private/Proprietary. Contact owner for usage rights.
 
 ---
 
-## 🤝 Get in Touch
-
-**Live Demo:** https://evspark22.web.app  
-**API:** https://reseller-ev.vercel.app  
-**Status:** ✅ Production Ready | 🚀 Live & Deployed
 
