@@ -4,6 +4,7 @@ import { FaGoogle } from "react-icons/fa";
 import { toast } from 'react-toastify';
 import { AuthContext } from '../../../context/DpiContext/ContextProvider';
 import useToken from '../../../hooks/useToken';
+import Loading from '../Loading/Loading';
 
 const Login = () => {
   const { signInwithG, sigIn, loading } = useContext(AuthContext);
@@ -11,20 +12,25 @@ const Login = () => {
   const location = useLocation();
 
   const [loginUserEmail, setLoginUserEmail] = useState('');
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [token] = useToken(loginUserEmail);
 
   const from = location.state?.from?.pathname || '/';
 
-  // Navigate only when token is available - use useEffect
+  // Navigate only when token is available
   useEffect(() => {
-    if (token) {
+    if (token && !isLoggingIn) {
       console.log('Token received, navigating to:', from);
-      navigate(from, { replace: true });
+      setTimeout(() => {
+        navigate(from, { replace: true });
+      }, 500);
     }
-  }, [token, navigate, from]);
+  }, [token, navigate, from, isLoggingIn]);
 
   const handleOnSubmit = (event) => {
     event.preventDefault();
+    setIsLoggingIn(true);
+    
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
@@ -34,16 +40,20 @@ const Login = () => {
         const user = result.user;
         console.log('User logged in:', user.email);
         form.reset();
-        setLoginUserEmail(email); // This triggers useToken hook
+        setLoginUserEmail(email);
         toast.success('Login Successful');
+        setIsLoggingIn(false);
       })
       .catch((error) => {
-        console.error(error);
+        console.error('Login error:', error);
         toast.warning(`Email address or password doesn't match`);
+        setIsLoggingIn(false);
       });
   };
 
   const handleGoogleSub = () => {
+    setIsLoggingIn(true);
+    
     signInwithG()
       .then((result) => {
         const user = result.user;
@@ -51,39 +61,51 @@ const Login = () => {
         const name = user.displayName;
         console.log('Google login:', user.email);
         
-        // Save user and get token
-        saveUser(name, email);
-        setLoginUserEmail(email); // This triggers useToken hook
-        toast.success('Login Successful');
+        return saveUser(name, email)
+          .then(() => {
+            setLoginUserEmail(email);
+            toast.success('Login Successful');
+            setIsLoggingIn(false);
+          });
       })
       .catch((error) => {
-        console.error(error);
+        console.error('Google login error:', error);
         toast.warning('Google login failed');
+        setIsLoggingIn(false);
       });
   };
 
   const saveUser = (name, email) => {
     const user = { name, email };
-    fetch('https://reseller-ev.vercel.app/users', {
+    
+    return fetch('https://reseller-ev.vercel.app/users', {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
       },
       body: JSON.stringify(user)
     })
-      .then(res => res.json())
+      .then(res => {
+        console.log('Save user response status:', res.status);
+        if (!res.ok) {
+          throw new Error(`Failed to save user: ${res.status}`);
+        }
+        return res.json();
+      })
       .then(data => {
-        console.log('User saved:', data);
+        console.log('User saved successfully:', data);
+        return data;
       })
       .catch(error => {
         console.error('Save user error:', error);
+        throw error;
       });
   };
 
-  if (loading) {
+  if (loading || isLoggingIn) {
     return (
-      <div className='text-black text-center'>
-        <img className='w-[300px] mx-auto' src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921" alt="" />
+      <div className='flex items-center justify-center min-h-screen'>
+          <Loading />
       </div>
     );
   }
@@ -97,9 +119,7 @@ const Login = () => {
 
         <div className="card w-full max-w-sm shadow-2xl bg-neutral-focus">
           <div className="card-body">
-
             <form onSubmit={handleOnSubmit}>
-              {/* Email */}
               <div className="form-control">
                 <label className="label">
                   <span className="label-text text-gray-300">Email</span>
@@ -113,7 +133,6 @@ const Login = () => {
                 />
               </div>
 
-              {/* Password */}
               <div className="form-control mt-3">
                 <label className="label">
                   <span className="label-text text-gray-300">Password</span>
@@ -138,29 +157,27 @@ const Login = () => {
                 </label>
               </div>
 
-              {/* Login Button */}
               <div className="form-control mt-6">
-                <button className="btn btn-primary w-full">
-                  Login
+                <button className="btn btn-primary w-full" type="submit" disabled={isLoggingIn}>
+                  {isLoggingIn ? 'Logging in...' : 'Login'}
                 </button>
               </div>
             </form>
 
-            {/* Google Login */}
             <div className="flex justify-center mt-4">
               <button
                 onClick={handleGoogleSub}
                 className="btn btn-outline text-[12px] text-white"
+                type="button"
+                disabled={isLoggingIn}
               >
                 <FaGoogle className="mr-2 text-white" /> Login with Google
               </button>
             </div>
-
           </div>
         </div>
       </div>
     </div>
-
   );
 };
 

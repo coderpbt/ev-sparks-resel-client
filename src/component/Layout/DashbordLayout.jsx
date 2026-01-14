@@ -3,10 +3,15 @@ import { Link, Outlet } from "react-router-dom";
 import { AuthContext } from "../../context/DpiContext/ContextProvider";
 import useAdmin from "../../hooks/useAdmin";
 import Header from "../Sheard/Header/Header";
+import Loading from "../Sheard/Loading/Loading";
 
 const DashboardLayout = () => {
-  const { user } = useContext(AuthContext);
-  const [isAdmin] = useAdmin(user?.email);
+  const { user, loading } = useContext(AuthContext);
+  const [isAdmin, isAdminLoading] = useAdmin(user?.email);
+
+    if (loading || isAdminLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className="bg-gray-950 min-h-screen text-white">

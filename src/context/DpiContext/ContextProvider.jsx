@@ -9,7 +9,7 @@ const auth = getAuth(app);
 
 const ContextProvider = ({children}) => {
 
-  const [user,setUser] = useState({})
+  const [user,setUser] = useState(null)
   const [loading,setLoading] = useState(true)
 
   //google login provider
@@ -40,7 +40,7 @@ const ContextProvider = ({children}) => {
 
   //update user profile name and picture
   const updateProfileName = profile => {
-    setLoading(true)
+    // don't toggle global `loading` here — profile update doesn't change auth state
     return updateProfile(auth.currentUser, profile)
   }
 
