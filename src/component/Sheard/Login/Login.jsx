@@ -7,7 +7,7 @@ import useToken from '../../../hooks/useToken';
 import Loading from '../Loading/Loading';
 
 const Login = () => {
-  const { signInwithG, sigIn, loading } = useContext(AuthContext);
+  const { signInwithG, sigIn, loading, setLoading } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -43,11 +43,13 @@ const Login = () => {
         setLoginUserEmail(email);
         toast.success('Login Successful');
         setIsLoggingIn(false);
+        setLoading(false)
       })
       .catch((error) => {
         console.error('Login error:', error);
         toast.warning(`Email address or password doesn't match`);
         setIsLoggingIn(false);
+        setLoading(false)
       });
   };
 
